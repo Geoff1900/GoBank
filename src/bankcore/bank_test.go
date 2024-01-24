@@ -47,10 +47,10 @@ func TestDeposit(t *testing.T) {
 		Balance: 0,
 	}
 	var expected float64 = 10
-	var actual float64 = 10
 
 	//Act
-	account.Deposit(actual)
+	account.Deposit(10.0)
+	var actual float64 = account.Balance
 
 	//Assert
 	if actual != expected {
@@ -99,5 +99,95 @@ func TestDepositEqualsZero(t *testing.T) {
 	//Assert
 	if err := account.Deposit(actual); err == nil {
 		t.Errorf("Account() error expected if deposit is equal to zero")
+	}
+}
+
+func TestWithdraw(t *testing.T) {
+	//Arrange
+
+	account := Account{
+		Customer: Customer{
+			Name:    "Geoff",
+			Address: "Porthcawl",
+			Phone:   "123",
+		},
+		Number:  001,
+		Balance: 0,
+	}
+	var expected float64 = 0.0
+
+	//Act
+	account.Withdraw(10.0)
+	var actual float64 = account.Balance
+
+	//Assert
+	if actual != expected {
+		t.Errorf("Account() returned %f when %f was expected", actual, expected)
+	}
+}
+
+func TestWithdrawLessThanZero(t *testing.T) {
+	//Arrange
+
+	account := Account{
+		Customer: Customer{
+			Name:    "Geoff",
+			Address: "Porthcawl",
+			Phone:   "123",
+		},
+		Number:  001,
+		Balance: 0,
+	}
+	var actual float64 = -10
+
+	//Act
+
+	//Assert
+	if err := account.Withdraw(actual); err == nil {
+		t.Errorf("Account() error expected if withdrawal is less than zero")
+	}
+}
+
+func TestWithdrawEqualsZero(t *testing.T) {
+	//Arrange
+
+	account := Account{
+		Customer: Customer{
+			Name:    "Geoff",
+			Address: "Porthcawl",
+			Phone:   "123",
+		},
+		Number:  001,
+		Balance: 0,
+	}
+	var actual float64 = 0
+
+	//Act
+
+	//Assert
+	if err := account.Withdraw(actual); err == nil {
+		t.Errorf("Account() error expected if withdrawal is equal to zero")
+	}
+}
+
+func TestWithdrawLessThanBalance(t *testing.T) {
+	//Arrange
+
+	account := Account{
+		Customer: Customer{
+			Name:    "Geoff",
+			Address: "Porthcawl",
+			Phone:   "123",
+		},
+		Number:  001,
+		Balance: 0,
+	}
+	var actual float64 = 10
+
+	//Act
+
+	//Assert
+	if err := account.Withdraw(actual); err == nil {
+		t.Errorf("Account() error expected if withdrawal is greater than balance")
 	}
 }
