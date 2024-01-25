@@ -143,7 +143,7 @@ func TestWithdrawLessThanZero(t *testing.T) {
 	//Act
 
 	//Assert
-	if err := account.Withdraw(actual); err == nil {
+	if account.Withdraw(actual) == nil {
 		t.Errorf("Account() error expected if withdrawal is less than zero")
 	}
 }
@@ -189,5 +189,28 @@ func TestWithdrawLessThanBalance(t *testing.T) {
 	//Assert
 	if err := account.Withdraw(actual); err == nil {
 		t.Errorf("Account() error expected if withdrawal is greater than balance")
+	}
+}
+
+func TestStatement(t *testing.T) {
+	//Arrange
+
+	account := Account{
+		Customer: Customer{
+			Name:    "Geoff",
+			Address: "Porthcawl",
+			Phone:   "12345",
+		},
+		Number:  01,
+		Balance: 0.0,
+	}
+	account.Deposit(1.0)
+	//Act
+	actual := account.Statement()
+	expected := "1 - Geoff - 1"
+
+	//Assert
+	if actual != expected {
+		t.Errorf("Account. Statement() returned %s when %s was expected", actual, expected)
 	}
 }

@@ -2,6 +2,7 @@ package bank
 
 import (
 	"errors"
+	"fmt"
 )
 
 func Ping() string {
@@ -37,4 +38,9 @@ func (account *Account) Withdraw(withdrawal float64) error {
 	}
 	account.Balance -= withdrawal
 	return nil
+}
+
+func (account *Account) Statement() string {
+	statement := fmt.Sprintf("%d - %s - %v", account.Number, account.Name, account.Balance)
+	return statement
 }
