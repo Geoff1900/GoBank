@@ -6,7 +6,7 @@ import (
 )
 
 func Ping() string {
-	return "TEST RESPONSE -I'm from GitHub"
+	return "TEST RESPONSE -I'm from GitHub don't you know"
 }
 
 type Customer struct {
