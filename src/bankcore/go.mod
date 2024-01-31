@@ -1,3 +1,3 @@
-module github.com/Geoff1900/GoBank/src/bankcore/bank
+module github.com/Geoff1900/GoBank
 
 go 1.20
