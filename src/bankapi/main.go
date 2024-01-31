@@ -1,9 +1,8 @@
 package main
 
 import (
+	bank "GoBank/src/bankcore"
 	"fmt"
-
-	"github.com/Geoff1900/GoBank/bank"
 )
 
 func main() {
