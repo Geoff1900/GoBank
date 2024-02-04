@@ -24,6 +24,7 @@ func main() {
 	http.HandleFunc("/statement", statement)
 	http.HandleFunc("/deposit", deposit)
 	http.HandleFunc("/withdraw", withdraw)
+	http.HandleFunc("/transfer", transfer)
 	log.Fatal(http.ListenAndServe("localhost:8000", nil))
 }
 func statement(w http.ResponseWriter, req *http.Request) {
@@ -99,4 +100,8 @@ func withdraw(w http.ResponseWriter, req *http.Request) {
 			}
 		}
 	}
+}
+
+func transfer(w http.ResponseWriter, req *http.Request) {
+	fmt.Fprintf(w, "Transfer response")
 }
