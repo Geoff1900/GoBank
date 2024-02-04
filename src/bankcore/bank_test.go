@@ -216,7 +216,7 @@ func TestStatement(t *testing.T) {
 }
 
 func TestTransferCheckJacksBalance(t *testing.T) {
-	t.Skip("Skipping test until Transfer method is implemented")
+	//t.Skip("Skipping test until Transfer method is implemented")
 	//Arrange
 	accountTo := Account{
 		Customer: Customer{
@@ -245,5 +245,34 @@ func TestTransferCheckJacksBalance(t *testing.T) {
 	//Assert
 	if actual != expected {
 		t.Errorf("Account. Statement() returned %v when %v was expected", actual, expected)
+	}
+}
+
+func TestTransferCheckEnoughBalance(t *testing.T) {
+	//t.Skip("Skipping test until Transfer method is implemented")
+	//Arrange
+	accountTo := Account{
+		Customer: Customer{
+			Name:    "Jack",
+			Address: "Porthcawl",
+			Phone:   "12345",
+		},
+		Number:  01,
+		Balance: 100.0,
+	}
+
+	accountFrom := Account{
+		Customer: Customer{
+			Name:    "Diane",
+			Address: "Porthcawl",
+			Phone:   "12345",
+		},
+		Number:  02,
+		Balance: 0.0,
+	}
+
+	//Act & Assert
+	if err := accountTo.Transfer(101.0, &accountFrom); err == nil {
+		t.Errorf("Account() error expected if withdrawal is greater than balance")
 	}
 }

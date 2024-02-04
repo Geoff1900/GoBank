@@ -34,7 +34,7 @@ func (account *Account) Withdraw(withdrawal float64) error {
 		return errors.New("value of withdrawal must be greater than 0")
 	}
 	if withdrawal > account.Balance {
-		return errors.New("value of withdrawal must be greater than balance")
+		return errors.New("value of withdrawal must be less than balance")
 	}
 	account.Balance -= withdrawal
 	return nil
@@ -46,6 +46,12 @@ func (account *Account) Statement() string {
 }
 
 // Mock Transfer method
-func (a *Account) Transfer(amount float64, accountFrom *Account) {
+func (accountTo *Account) Transfer(amount float64, accountFrom *Account) error {
 	// Do nothing
+	if err := accountTo.Withdraw(amount); err != nil {
+		return errors.New("value of withdrawal must be less than balance")
+	}
+
+	accountFrom.Deposit(amount)
+	return nil
 }
