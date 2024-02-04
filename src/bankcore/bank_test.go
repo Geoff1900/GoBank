@@ -214,3 +214,36 @@ func TestStatement(t *testing.T) {
 		t.Errorf("Account. Statement() returned %s when %s was expected", actual, expected)
 	}
 }
+
+func TestTransferCheckJacksBalance(t *testing.T) {
+	t.Skip("Skipping test until Transfer method is implemented")
+	//Arrange
+	accountTo := Account{
+		Customer: Customer{
+			Name:    "Jack",
+			Address: "Porthcawl",
+			Phone:   "12345",
+		},
+		Number:  01,
+		Balance: 100.0,
+	}
+
+	accountFrom := Account{
+		Customer: Customer{
+			Name:    "Diane",
+			Address: "Porthcawl",
+			Phone:   "12345",
+		},
+		Number:  02,
+		Balance: 0.0,
+	}
+	//	Act
+
+	expected := 50.0
+	accountTo.Transfer(50.0, &accountFrom)
+	actual := accountFrom.Balance
+	//Assert
+	if actual != expected {
+		t.Errorf("Account. Statement() returned %v when %v was expected", actual, expected)
+	}
+}

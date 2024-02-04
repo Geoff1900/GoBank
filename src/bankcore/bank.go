@@ -44,3 +44,8 @@ func (account *Account) Statement() string {
 	statement := fmt.Sprintf("%d - %s - %v", account.Number, account.Name, account.Balance)
 	return statement
 }
+
+// Mock Transfer method
+func (a *Account) Transfer(amount float64, accountFrom *Account) {
+	// Do nothing
+}
