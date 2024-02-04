@@ -6,7 +6,7 @@ import (
 )
 
 func Ping() string {
-	return "THE RFLEX RESPONSE -I'm from GitHub don't you know - v1.1.1"
+	return "TEST RESPONSE"
 }
 
 type Customer struct {
