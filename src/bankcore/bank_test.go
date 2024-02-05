@@ -276,3 +276,27 @@ func TestTransferCheckEnoughBalance(t *testing.T) {
 		t.Errorf("Account() error expected if withdrawal is greater than balance")
 	}
 }
+func TestStatementReturnsJSON(t *testing.T) {
+	t.Skip("Skipping test until Statement method returns JSON")
+	//Arrange
+	//Arrange
+
+	account := Account{
+		Customer: Customer{
+			Name:    "Geoff",
+			Address: "Porthcawl",
+			Phone:   "12345",
+		},
+		Number:  01,
+		Balance: 0.0,
+	}
+	account.Deposit(1.0)
+	//Act
+	actual := account.Statement()
+	expected := "1 - Geoff - 1"
+
+	//Assert
+	if actual != expected {
+		t.Errorf("Account. Statement() returned %s when %s was expected", actual, expected)
+	}
+}
