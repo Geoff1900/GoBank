@@ -55,3 +55,12 @@ func (accountTo *Account) Transfer(amount float64, accountFrom *Account) error {
 	accountFrom.Deposit(amount)
 	return nil
 }
+
+type Print interface {
+	Statement() string
+}
+
+func Statement(p Print) string {
+	statement := p.Statement()
+	return statement
+}
