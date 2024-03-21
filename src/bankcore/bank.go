@@ -56,11 +56,11 @@ func (accountTo *Account) Transfer(amount float64, accountFrom *Account) error {
 	return nil
 }
 
-type Print interface {
+type Bank interface {
 	Statement() string
 }
 
-func Statement(p Print) string {
-	statement := p.Statement()
+func Statement(b Bank) string {
+	statement := b.Statement()
 	return statement
 }

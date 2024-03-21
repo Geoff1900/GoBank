@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -9,16 +10,18 @@ import (
 	bank "github.com/Geoff1900/GoBank/src/bankcore"
 )
 
-var accounts = map[float64]*bank.Account{}
+var accounts = map[float64]*CustomAccount{}
 
 func main() {
-	accounts[1001] = &bank.Account{
-		Customer: bank.Customer{
-			Name:    "John",
-			Address: "Los Angeles, California",
-			Phone:   "(213) 555 0147",
+	accounts[1001] = &CustomAccount{
+		Account: &bank.Account{
+			Customer: bank.Customer{
+				Name:    "John",
+				Address: "Los Angeles, California",
+				Phone:   "(213) 555 0147",
+			},
+			Number: 1001,
 		},
-		Number: 1001,
 	}
 
 	http.HandleFunc("/statement", statement)
@@ -42,7 +45,8 @@ func statement(w http.ResponseWriter, req *http.Request) {
 		if !ok {
 			fmt.Fprintf(w, "Account with number %v can't be found!", number)
 		} else {
-			fmt.Fprintf(w, account.Statement())
+			//fmt.Fprintf(w, account.Statement())
+			json.NewEncoder(w).Encode(account.Statement())
 		}
 	}
 }
@@ -104,4 +108,16 @@ func withdraw(w http.ResponseWriter, req *http.Request) {
 
 func transfer(w http.ResponseWriter, req *http.Request) {
 	fmt.Fprintf(w, "Transfer response")
+}
+
+type CustomAccount struct {
+	*bank.Account
+}
+
+func (c *CustomAccount) Statement() string {
+	aBytes, err := json.Marshal(c.Account)
+	if err != nil {
+		return err.Error()
+	}
+	return string(aBytes)
 }
